@@ -64,7 +64,7 @@ export default class LinkedList {
 
   // O(n)
   deleteAll(value) {
-    if (!this.length) return
+    if (!this.length) return null
 
     while (this.head && this.head.value === value) {
       this.head = this.head.next
@@ -88,49 +88,27 @@ export default class LinkedList {
     }
   }
 
-  // O(n)
-  delete(value) {
-    if (!this.length) return
-    let currentNode = this.head
-
-    if (this.head.value === value) {
-      this.head = this.head.next
-      this.length--
-      return
-    }
-
-    while (currentNode.next) {
-      if (currentNode.next.value === value) {
-        currentNode.next = currentNode.next.next
-        this.length--
-        return
-      } else {
-        currentNode = currentNode.next
-      }
-    }
-
-    if (this.tail.value === value) {
-      this.tail = currentNode
-      this.length--
-    }
-  }
-
-  insertAfter(value, valueAfter) {
+  insertAfter(valueAfter, value) {
     if (!this.length) return null
-    if (~this.indexOf(valueAfter)) return null
     let currentNode = this.head
 
     while (currentNode.next) {
       if (currentNode.value === valueAfter) {
-        currentNode.next = new LinkedListNode(value, currentNode.next.next)
-        return
+        this.length++
+        currentNode.next = new LinkedListNode(value, currentNode.next)
+        return this
       }
       currentNode = currentNode.next
     }
     // if it's in the every end
     if (currentNode.value === valueAfter) {
-      currentNode.next = new LinkedListNode(value, null)
+      this.length++
+      const tail = new LinkedListNode(value, null)
+      currentNode.next = tail
+      this.tail = tail
     }
+
+    return this
   }
 
   reverse() {
@@ -141,8 +119,10 @@ export default class LinkedList {
       const nextNode = current.next
       current.next = prev
       prev = current
+      if (current.value === this.head.value) this.tail = current
       current = nextNode
     }
-    return prev
+    this.head = prev
+    return this
   }
 }

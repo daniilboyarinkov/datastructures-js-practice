@@ -103,6 +103,11 @@ describe("#deleteAll", () => {
   describe("If there are no instances", () => {
     test("Linked list should not be changed", () => {
       const linkedList = new LinkedList()
+
+      expect(linkedList.deleteAll("null")).toBeNull()
+    })
+    test("Linked list should not be changed", () => {
+      const linkedList = new LinkedList()
       linkedList.append(1)
       linkedList.append(2)
       linkedList.append(3)
@@ -128,38 +133,41 @@ describe("#deleteAll", () => {
       linkedList.deleteAll(1)
       const newLinkedList = new LinkedList()
       newLinkedList.append(2)
-      expect(linkedList).toEqual(newLinkedList)
+      expect(linkedList.head.value).toBe(2)
     })
-  })
-})
-
-describe("#delete", () => {
-  describe("Delete the item that is not in the list", () => {
-    test("should be the same linked list", () => {
+    test("Should reduce all instances from the middle", () => {
       const linkedList = new LinkedList()
-      linkedList.append(1)
-      linkedList.append(2)
-      const oldLinkedList = linkedList
-      linkedList.deleteAll(3)
-      expect(linkedList).toEqual(oldLinkedList)
-    })
-  })
-  describe("Delete the item that IS in the list", () => {
-    test("should be the linked list without that item (only first one)", () => {
-      const linkedList = new LinkedList()
+      linkedList.append(0)
       linkedList.append(1)
       linkedList.append(1)
       linkedList.append(2)
-      linkedList.delete(1)
+      linkedList.deleteAll(1)
       const newLinkedList = new LinkedList()
-      newLinkedList.append(1)
+      newLinkedList.append(0)
       newLinkedList.append(2)
       expect(linkedList).toEqual(newLinkedList)
+    })
+    test("Should reduce all instances from the end", () => {
+      const linkedList = new LinkedList()
+      linkedList.append(0)
+      linkedList.append(2)
+      linkedList.append(1)
+      linkedList.append(1)
+      linkedList.deleteAll(1)
+
+      expect(linkedList.tail.value).toBe(2)
     })
   })
 })
 
 describe("#insertAfter", () => {
+  describe("if length is 0", () => {
+    test("should return null", () => {
+      const linkedList = new LinkedList()
+
+      expect(linkedList.insertAfter(4, 4)).toBeNull()
+    })
+  })
   describe("after the item that is not in tke linked list", () => {
     test("should return null", () => {
       const linkedList = new LinkedList()
@@ -173,12 +181,12 @@ describe("#insertAfter", () => {
     })
   })
   describe("after the item that IS in tke linked list", () => {
-    test("should insert after the existing item", () => {
+    test("should insert after the existing item (end)", () => {
       const linkedList = new LinkedList()
       linkedList.append(1)
       linkedList.append(2)
       linkedList.append(3)
-      linkedList.insertAfter(4, 3)
+      linkedList.insertAfter(3, 4)
 
       const newLinkedList = new LinkedList()
       newLinkedList.append(1)
@@ -188,21 +196,37 @@ describe("#insertAfter", () => {
 
       expect(linkedList).toEqual(newLinkedList)
     })
-
-    test("should insert after the last item", () => {
+    test("should insert after the existing item (middle)", () => {
       const linkedList = new LinkedList()
       linkedList.append(1)
       linkedList.append(2)
       linkedList.append(3)
-      linkedList.insertAfter(4, 3)
+      linkedList.insertAfter(2, 4)
 
       const newLinkedList = new LinkedList()
       newLinkedList.append(1)
       newLinkedList.append(2)
-      newLinkedList.append(3)
       newLinkedList.append(4)
+      newLinkedList.append(3)
 
       expect(linkedList).toEqual(newLinkedList)
     })
   })
+})
+
+describe("#reverse", () => {
+  let linkedList = new LinkedList()
+  linkedList.append(0)
+  linkedList.append(1)
+  linkedList.append(2)
+  linkedList.append(3)
+  linkedList.reverse()
+
+  const reversedLinkedList = new LinkedList()
+  reversedLinkedList.append(3)
+  reversedLinkedList.append(2)
+  reversedLinkedList.append(1)
+  reversedLinkedList.append(0)
+
+  expect(linkedList).toEqual(reversedLinkedList)
 })
