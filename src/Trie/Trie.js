@@ -63,6 +63,11 @@ export default class Trie {
     return result
   }
 
+  /**
+   * Gets node to start after pref or null if no pref is in trie
+   * @param {string} pref
+   * @returns TrieNode of the last letter of pref if so else null
+   */
   getNode(pref) {
     let current = this.root
 
