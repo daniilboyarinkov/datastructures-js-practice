@@ -13,28 +13,23 @@ export default class BinarySearchTree {
   insert(value) {
     const newNode = new BinarySearchNode(value)
 
-    if (!this.root) {
+    if (this.root === null) {
       this.root = newNode
       return this
-    } else {
-      let current = this.root
+    }
 
-      while (current) {
-        if (current.value === value) return this
-        else if (value < current.value) {
-          if (!current.left) {
-            current.left = newNode
-            return this
-          }
-          current = current.left
-        } else {
-          if (!current.right) {
-            current.right = newNode
-            return this
-          }
-          current = current.right
-        }
-      }
+    this.#insertNode(this.root, newNode)
+
+    return this
+  }
+
+  #insertNode(node, newNode) {
+    if (newNode.value < node.value) {
+      if (!node.left) node.left = newNode
+      else this.#insertNode(node.left, newNode)
+    } else {
+      if (!node.right) node.right = newNode
+      else this.#insertNode(node.right, newNode)
     }
   }
 
