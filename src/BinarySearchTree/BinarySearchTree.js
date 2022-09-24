@@ -77,4 +77,59 @@ export default class BinarySearchTree {
       return current
     }
   }
+
+  BFSTraverse() {
+    let current = this.root
+    const data = []
+    const q = []
+
+    q.push(current)
+
+    while (q.length) {
+      current = q.shift()
+      data.push(current.value)
+      if (current.left) q.push(current.left)
+      if (current.right) q.push(current.right)
+    }
+    return data
+  }
+
+  InOrderDFSTraverse() {
+    const data = []
+
+    const InOrderTraverse = (node) => {
+      if (node.left) InOrderTraverse(node.left)
+      data.push(node.value)
+      if (node.right) InOrderTraverse(node.right)
+    }
+
+    InOrderTraverse(this.root)
+    return data
+  }
+
+  PreOrderDFSTraverse() {
+    const data = []
+
+    const InOrderTraverse = (node) => {
+      data.push(node.value)
+      if (node.left) InOrderTraverse(node.left)
+      if (node.right) InOrderTraverse(node.right)
+    }
+
+    InOrderTraverse(this.root)
+    return data
+  }
+
+  PostOrderDFSTraverse() {
+    const data = []
+
+    const InOrderTraverse = (node) => {
+      if (node.left) InOrderTraverse(node.left)
+      if (node.right) InOrderTraverse(node.right)
+      data.push(node.value)
+    }
+
+    InOrderTraverse(this.root)
+    return data
+  }
 }

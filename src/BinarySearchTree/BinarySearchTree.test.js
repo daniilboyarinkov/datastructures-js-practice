@@ -83,3 +83,33 @@ describe("#remove", () => {
     expect(BST.root.left.value).toBe(1)
   })
 })
+
+describe("#BFSTraverse", () => {
+  test("test", () => {
+    BST = new BinarySearchTree()
+    BST.insert(3).insert(1).insert(2).insert(7).insert(4).insert(10)
+    const result = [3, 1, 7, 2, 4, 10]
+    expect(BST.BFSTraverse()).toEqual(result)
+  })
+})
+
+describe("#DFSTraverse", () => {
+  test("InOrder", () => {
+    BST = new BinarySearchTree()
+    BST.insert(3).insert(1).insert(2).insert(7).insert(4).insert(10)
+    const result = [1, 2, 3, 4, 7, 10]
+    expect(BST.InOrderDFSTraverse()).toEqual(result)
+  })
+  test("PreOrder", () => {
+    BST = new BinarySearchTree()
+    BST.insert(3).insert(1).insert(2).insert(7).insert(4).insert(10)
+    const result = [3, 1, 2, 7, 4, 10]
+    expect(BST.PreOrderDFSTraverse()).toEqual(result)
+  })
+  test("PostOrder", () => {
+    BST = new BinarySearchTree()
+    BST.insert(3).insert(1).insert(2).insert(7).insert(4).insert(10)
+    const result = [2, 1, 4, 10, 7, 3]
+    expect(BST.PostOrderDFSTraverse()).toEqual(result)
+  })
+})

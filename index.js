@@ -1,16 +1,9 @@
-// import Trie from "./src/Trie/Trie.js"
+import BFS from "./src/BinarySearchTree/BinarySearchTree.js"
 
-// const trie = new Trie()
+const tree = new BFS()
 
-// console.log(trie)
-// trie.insert("test")
-// trie.insert("test")
-// trie.insert("try")
-// trie.insert("auto")
-// trie.insert("oops")
-// trie.insert("oloo")
-// trie.insert("oleu")
-// console.log(trie.find("t"))
-// console.log(trie.find("o"))
-// console.log(trie.find("ol"))
-// console.log(trie.find("0"))
+tree.insert(3).insert(1).insert(2).insert(7).insert(4).insert(10)
+
+console.log(tree.InOrderDFSTraverse())
+console.log(tree.PreOrderDFSTraverse())
+console.log(tree.PostOrderDFSTraverse())
